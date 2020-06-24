@@ -9,6 +9,7 @@ import { SearchBar } from "./SearchBar";
 export const OfficeContainer = () => {
   const [offices, setOffices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
     getAllOffices();
   }, []);
@@ -30,12 +31,15 @@ export const OfficeContainer = () => {
 
   return (
     <>
-      <SearchBar></SearchBar>
+      <SearchBar
+        offices={offices}
+        setSearchResults={setSearchResults}
+      ></SearchBar>
       <Grid container style={{ marginTop: "24px" }} spacing={3}>
         {!loading &&
-          offices.map((office) => (
-            <Grid item xs={6} sm={3}>
-              <OfficeCard key={office.name} office={office}></OfficeCard>
+          searchResults.map((office) => (
+            <Grid key={office.name} item xs={6} sm={3}>
+              <OfficeCard office={office}></OfficeCard>
             </Grid>
           ))}
       </Grid>

@@ -4,9 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 import style from "./SearchBar.css";
 
@@ -38,8 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SearchBar = () => {
+export const SearchBar = ({ offices, setSearchResults }) => {
   const classes = useStyles();
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value;
+    let filteredOffices;
+    filteredOffices = offices.filter(
+      (office) =>
+        office.name.toLowerCase().includes(searchValue) ||
+        office.name.toUpperCase().includes(searchValue)
+    );
+    setSearchResults(filteredOffices);
+  };
 
   return (
     <div className={classes.searchBarDecoration}>
@@ -52,7 +61,11 @@ export const SearchBar = () => {
           <SearchIcon />
         </IconButton>
         <Divider className={classes.divider} orientation="vertical" />
-        <InputBase className={classes.input} placeholder="Buscar sucursal" />
+        <InputBase
+          className={classes.input}
+          placeholder="Buscar sucursal"
+          onChange={(e) => handleSearch(e)}
+        />
       </Paper>
     </div>
   );
