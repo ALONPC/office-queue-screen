@@ -8,6 +8,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import moment from "moment";
+
 import { Person, Schedule } from "@material-ui/icons";
 
 const useOnlineStyles = makeStyles((theme) => ({
@@ -25,17 +27,41 @@ const useOnlineStyles = makeStyles((theme) => ({
   bottom: {
     height: "24px",
     backgroundColor: "mediumseagreen",
+    fontWeight: "bold",
+    color: "white",
   },
 }));
 
-export const OfficeCard = ({ office: { name, lines } }) => {
-  const classes = useOnlineStyles();
-  //   const offline = useOfflineStyles();
+const useOfflineStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    backgroundColor: "gainsboro",
+  },
+  content: {
+    height: 64,
+  },
+  text: {
+    fontWeight: "bold",
+    color: "gray",
+  },
+  bottom: {
+    height: "24px",
+    backgroundColor: "grey",
+    fontWeight: "bold",
+    color: "white",
+  },
+}));
 
+export const OfficeCard = ({ office: { name, online, lines } }) => {
   const [totalPeopleWaiting, setTotalPeopleWaiting] = useState(0);
+  const [avgWaitingTime, setAvgWaitingTime] = useState(0);
+  const onlineClasses = useOnlineStyles();
+  const offlineClasses = useOfflineStyles();
+  const classes = online ? onlineClasses : offlineClasses;
 
   useEffect(() => {
     sumPeopleWaiting();
+    getAvgWaitingTime();
   }, [lines]);
 
   const sumPeopleWaiting = () => {
@@ -46,6 +72,17 @@ export const OfficeCard = ({ office: { name, lines } }) => {
     const total = waitingPeople.reduce((a, b) => a + b);
     console.log("sumPeopleWaiting -> total", total);
     setTotalPeopleWaiting(total);
+  };
+
+  const getAvgWaitingTime = () => {
+    const elapsedArr = [];
+    for (const key of Object.keys(lines)) {
+      elapsedArr.push(lines[key].elapsed);
+    }
+    const totalAvg = elapsedArr.reduce((a, b) => (a + b) / elapsedArr.length);
+    console.log("avgWaitingTime -> totalAvg", totalAvg);
+    const parsedTotalAvg = moment.utc(totalAvg * 1000).format("HH:ss");
+    setAvgWaitingTime(parsedTotalAvg);
   };
 
   return (
@@ -68,9 +105,8 @@ export const OfficeCard = ({ office: { name, lines } }) => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.bottom}>
-        <Person></Person>
-        {totalPeopleWaiting}
-        <Schedule></Schedule>
+        <Person></Person> {totalPeopleWaiting}
+        <Schedule></Schedule> {avgWaitingTime}
       </CardActions>
     </Card>
   );
