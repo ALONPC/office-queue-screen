@@ -6,7 +6,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-
 import moment from "moment";
 
 import { Person, Schedule } from "@material-ui/icons";
@@ -69,7 +68,6 @@ export const OfficeCard = ({ office: { name, online, lines } }) => {
       waitingPeople.push(lines[key].waiting);
     }
     const total = waitingPeople.reduce((a, b) => a + b);
-    console.log("sumPeopleWaiting -> total", total);
     setTotalPeopleWaiting(total);
   };
 
@@ -79,8 +77,7 @@ export const OfficeCard = ({ office: { name, online, lines } }) => {
       elapsedArr.push(lines[key].elapsed);
     }
     const totalAvg = elapsedArr.reduce((a, b) => (a + b) / elapsedArr.length);
-    console.log("avgWaitingTime -> totalAvg", totalAvg);
-    const parsedTotalAvg = moment.utc(totalAvg * 1000).format("HH:ss");
+    const parsedTotalAvg = moment.utc(totalAvg * 1000).format("HH:mm:ss");
     setAvgWaitingTime(parsedTotalAvg);
   };
 

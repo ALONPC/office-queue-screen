@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import { OfficeCard } from "./OfficeCard";
-
-import style from "./OfficeContainer.css";
 import { SearchBar } from "./SearchBar";
 
 export const OfficeContainer = () => {
@@ -26,8 +24,6 @@ export const OfficeContainer = () => {
       });
     setOffices(allOffices);
     setSearchResults(allOffices);
-    console.log("getsAllOffices -> allOffices", allOffices);
-    console.log("OfficeContainer -> loading", loading);
   };
 
   return (
