@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { OfficeCard } from "./OfficeCard";
 
 import style from "./OfficeContainer.css";
+import { SearchBar } from "./SearchBar";
 
 export const OfficeContainer = () => {
   const [offices, setOffices] = useState([]);
@@ -28,8 +29,9 @@ export const OfficeContainer = () => {
   };
 
   return (
-    <div className={"officeContainer"}>
-      <Grid container spacing={3}>
+    <>
+      <SearchBar></SearchBar>
+      <Grid container style={{ marginTop: "24px" }} spacing={3}>
         {!loading &&
           offices.map((office) => (
             <Grid item xs={6} sm={3}>
@@ -37,6 +39,6 @@ export const OfficeContainer = () => {
             </Grid>
           ))}
       </Grid>
-    </div>
+    </>
   );
 };

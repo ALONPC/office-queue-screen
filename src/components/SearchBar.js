@@ -29,13 +29,20 @@ const useStyles = makeStyles((theme) => ({
     height: 28,
     margin: 4,
   },
+  searchBarDecoration: {
+    width: "100%",
+    borderRadius: 5,
+    background: "#2d4f82",
+    padding: "10px 0 10px 10px",
+    marginTop: "30px",
+  },
 }));
 
 export const SearchBar = () => {
   const classes = useStyles();
 
   return (
-    <div className="searchBar">
+    <div className={classes.searchBarDecoration}>
       <Paper component="form" className={classes.root}>
         <IconButton
           type="submit"

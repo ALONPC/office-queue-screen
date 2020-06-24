@@ -11,7 +11,6 @@ const App = () => {
   return (
     <div className="App">
       <Logo></Logo>
-      <SearchBar></SearchBar>
       <Container maxWidth="lg">
         <OfficeContainer></OfficeContainer>
       </Container>
