@@ -25,6 +25,7 @@ export const OfficeContainer = () => {
         console.log(err);
       });
     setOffices(allOffices);
+    setSearchResults(allOffices);
     console.log("getsAllOffices -> allOffices", allOffices);
     console.log("OfficeContainer -> loading", loading);
   };

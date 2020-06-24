@@ -65,6 +65,7 @@ export const SearchBar = ({ offices, setSearchResults }) => {
           className={classes.input}
           placeholder="Buscar sucursal"
           onChange={(e) => handleSearch(e)}
+          autoFocus={true}
         />
       </Paper>
     </div>
