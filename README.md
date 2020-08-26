@@ -2,6 +2,10 @@
 
 # Commands
 
+### `npm i`
+
+Installs dependencies for the project
+
 ### `npm start`
 
 Runs the project locally for development
