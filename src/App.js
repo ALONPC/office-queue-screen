@@ -3,16 +3,23 @@ import Container from "@material-ui/core/Container";
 
 import { Logo } from "./components/Logo";
 import { OfficeContainer } from "./components/OfficeContainer";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+const theme = createMuiTheme({
+    typography: {
+        fontFamily: "Lato, sans-serif",
+    },
+});
 
 const App = () => {
-  return (
-    <div style={{ marginTop: 32 }} className="App">
-      <Logo></Logo>
-      <Container maxWidth="lg">
-        <OfficeContainer></OfficeContainer>
-      </Container>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <div style={{ marginTop: 32, overflow: "hidden" }}>
+                <Logo />
+                <OfficeContainer />
+            </div>
+        </ThemeProvider>
+    );
 };
 
 export default App;
