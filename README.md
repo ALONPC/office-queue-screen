@@ -2,11 +2,11 @@
 
 # Commands
 
-### `npm run start`
+### `npm start`
 Runs the project locally for development
 
-### `npm run test`
-Runs any tests in the project (not implemented though)
+### `npm test a`
+Runs any tests in the project
 
-### `npm run build`
+### `npm build`
 Builds the project for production, (could ask to install serve package on the first run)
