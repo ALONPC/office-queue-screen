@@ -1,12 +1,24 @@
-import React from "react";
-import { render } from "@testing-library/react";
+import axios from "axios";
+import {
+  API
+} from "../constants";
 
-import { shallow } from "enzyme";
-import { OfficeContainer } from "./OfficeContainer";
+describe("API is returning the data structure as expected", () => {
+  test("if the response contains objects matching the provided data structure", async () => {
+    const allOffices = await axios
+      .get(API)
+      .then((res) => res.data);
 
-describe("Zeroq testing", () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = shallow(<OfficeContainer />);
+    expect(allOffices).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: expect.any(String),
+          online: expect.any(Boolean),
+          location: expect.any(Object),
+          category: expect.any(String),
+          lines: expect.any(Object),
+        }),
+      ])
+    );
   });
 });
