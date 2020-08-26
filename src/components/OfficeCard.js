@@ -1,61 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+import {
+    makeStyles,
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    Typography,
+} from "@material-ui/core";
+import { Person, Schedule } from "@material-ui/icons";
 import moment from "moment";
 
-import { Person, Schedule } from "@material-ui/icons";
-
-const useOnlineStyles = makeStyles((_) => ({
-    root: {
-        maxWidth: 345,
-        backgroundColor: "#2d4f82",
-    },
+const defaultCardStyles = {
     content: {
-        height: 64,
-    },
-    text: {
+        height: 94,
+        padding: 16,
         fontWeight: "bold",
-        color: "#FFF",
     },
     bottom: {
-        height: 24,
-        backgroundColor: "#3cb371",
-        fontWeight: "bold",
-        color: "#FFF",
+        padding: 6,
     },
-}));
+};
 
-const useOfflineStyles = makeStyles((_) => ({
-    root: {
-        maxWidth: 345,
-        backgroundColor: "#eee",
-    },
-    content: {
-        height: 64,
-    },
-    text: {
-        fontWeight: "bold",
-        color: "#888",
-    },
-    bottom: {
-        height: 24,
-        backgroundColor: "#888",
-        fontWeight: "bold",
-        color: "#FFF",
-    },
-}));
+const useStyles = (status) =>
+    makeStyles((theme) => ({
+        card: {
+            maxWidth: 345,
+        },
+        content: {
+            ...defaultCardStyles.content,
+            backgroundColor: theme.palette[status].content.background,
+            color: theme.palette[status].content.text,
+        },
+        bottom: {
+            ...defaultCardStyles.bottom,
+            backgroundColor: theme.palette[status].bottom.background,
+            color: theme.palette[status].bottom.text,
+        },
+    }));
+
+const BottomInfo = ({ icon, info }) => {
+    return (
+        <>
+            {icon}
+            <Typography style={{ fontWeight: "bold", margin: 4 }}>
+                {info}
+            </Typography>
+        </>
+    );
+};
 
 export const OfficeCard = ({ office: { name, online, lines } }) => {
     const [totalPeopleWaiting, setTotalPeopleWaiting] = useState(0);
     const [avgWaitingTime, setAvgWaitingTime] = useState(0);
-    const onlineClasses = useOnlineStyles();
-    const offlineClasses = useOfflineStyles();
-    const classes = online ? onlineClasses : offlineClasses;
+    const status = online ? "online" : "offline";
+    const classes = useStyles(status)();
 
     useEffect(() => {
         sumPeopleWaiting();
@@ -84,23 +82,17 @@ export const OfficeCard = ({ office: { name, online, lines } }) => {
     };
 
     return (
-        <Card className={classes.root}>
+        <Card>
             <CardActionArea>
-                <CardMedia className={classes.media} />
                 <CardContent className={classes.content}>
-                    <Typography
-                        className={classes.text}
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                    >
+                    <Typography style={{ fontWeight: "bold" }} variant="h5">
                         {name}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions className={classes.bottom}>
-                <Person /> {totalPeopleWaiting}
-                <Schedule /> {avgWaitingTime}
+                <BottomInfo icon={<Person />} info={totalPeopleWaiting} />
+                <BottomInfo icon={<Schedule />} info={avgWaitingTime} />
             </CardActions>
         </Card>
     );

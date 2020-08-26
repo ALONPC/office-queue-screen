@@ -5,19 +5,17 @@ import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: "2px 4px",
         display: "flex",
-        alignItems: "center",
         height: 32,
-        width: 400,
+        width: "100%",
+        padding: "2px 4px",
     },
     input: {
         marginLeft: theme.spacing(1),
-        flex: 1,
     },
     iconButton: {
         padding: 10,
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     searchBarDecoration: {
         width: "100%",
-        background: "#2d4f82",
+        background: theme.palette.primary.main,
         padding: "10px 0 10px 10px",
         marginTop: 30,
     },
@@ -52,24 +50,33 @@ export const SearchBar = ({ offices, setSearchResults }) => {
     return (
         <div className={classes.searchBarDecoration}>
             <Container maxWidth="lg">
-                <Paper component="form" className={classes.root}>
-                    <IconButton
-                        type="submit"
-                        className={classes.iconButton}
-                        aria-label="search"
+                <Grid container xs={12} sm={6} md={4} lg={4}>
+                    <form
+                        className={classes.root}
+                        onSubmit={(e) => e.preventDefault()}
+                        noValidate
+                        autoComplete="off"
                     >
-                        <SearchIcon />
-                    </IconButton>
-                    <Divider
-                        className={classes.divider}
-                        orientation="vertical"
-                    />
-                    <InputBase
-                        className={classes.input}
-                        placeholder="Buscar sucursal"
-                        onChange={(e) => handleSearch(e)}
-                    />
-                </Paper>
+                        <Paper className={classes.root}>
+                            <IconButton
+                                type="submit"
+                                className={classes.iconButton}
+                                aria-label="search"
+                            >
+                                <SearchIcon />
+                            </IconButton>
+                            <Divider
+                                className={classes.divider}
+                                orientation="vertical"
+                            />
+                            <InputBase
+                                className={classes.input}
+                                placeholder="Buscar sucursal"
+                                onChange={(e) => handleSearch(e)}
+                            />
+                        </Paper>
+                    </form>
+                </Grid>
             </Container>
         </div>
     );

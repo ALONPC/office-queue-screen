@@ -1,1 +1,2 @@
-export const API = "https://boiling-mountain-49639.herokuapp.com/desafio-frontend"
+export const API =
+    "https://boiling-mountain-49639.herokuapp.com/desafio-frontend";
