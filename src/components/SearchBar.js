@@ -50,32 +50,34 @@ export const SearchBar = ({ offices, setSearchResults }) => {
     return (
         <div className={classes.searchBarDecoration}>
             <Container maxWidth="lg">
-                <Grid container xs={12} sm={6} md={4} lg={4}>
-                    <form
-                        className={classes.root}
-                        onSubmit={(e) => e.preventDefault()}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        <Paper className={classes.root}>
-                            <IconButton
-                                type="submit"
-                                className={classes.iconButton}
-                                aria-label="search"
-                            >
-                                <SearchIcon />
-                            </IconButton>
-                            <Divider
-                                className={classes.divider}
-                                orientation="vertical"
-                            />
-                            <InputBase
-                                className={classes.input}
-                                placeholder="Buscar sucursal"
-                                onChange={(e) => handleSearch(e)}
-                            />
-                        </Paper>
-                    </form>
+                <Grid container>
+                    <Grid item xs={12} sm={6} md={4} lg={4}>
+                        <form
+                            className={classes.root}
+                            onSubmit={(e) => e.preventDefault()}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <Paper className={classes.root}>
+                                <IconButton
+                                    type="submit"
+                                    className={classes.iconButton}
+                                    aria-label="search"
+                                >
+                                    <SearchIcon />
+                                </IconButton>
+                                <Divider
+                                    className={classes.divider}
+                                    orientation="vertical"
+                                />
+                                <InputBase
+                                    className={classes.input}
+                                    placeholder="Buscar sucursal"
+                                    onChange={(e) => handleSearch(e)}
+                                />
+                            </Paper>
+                        </form>
+                    </Grid>
                 </Grid>
             </Container>
         </div>
